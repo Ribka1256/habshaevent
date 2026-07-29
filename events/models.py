@@ -25,18 +25,18 @@ class Event(models.Model):
         ('cancelled', 'Cancelled'),
         ('completed', 'Completed'),
     ]
-    organizer = models.CharField(max_length=255)
+    organizer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='events')
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='events')
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True,  related_name='events')
     location  = models.CharField(max_length=255)
-    start_datetime = models.DateTimeField(auto_now_add=True)
-    end_datetime = models.DateTimeField(auto_now_add=True)
+    start_datetime = models.DateTimeField()
+    end_datetime = models.DateTimeField()
     capacity = models.PositiveIntegerField(default=0)
     cover_image = models.ImageField(upload_to='event_covers/', blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')                      
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['-start_datetime']
