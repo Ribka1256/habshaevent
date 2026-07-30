@@ -1,0 +1,35 @@
+.status {
+  text-align: center;
+  color: #6b2a2a;
+  padding: 2rem;
+}
+
+.status--error {
+  color: #b8342a;
+  font-weight: bold;
+}
+
+.detail {
+  display: flex;
+  justify-content: center;
+}
+
+.detail__card {
+  background: white;
+  border-radius: 10px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.detail__card h2 {
+  color: #6b2a2a;
+  margin-bottom: 0.5rem;
+}
+
+.detail__meta {
+  color: #888;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
