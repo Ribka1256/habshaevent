@@ -37,6 +37,7 @@ class Event(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')                      
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    is_featured = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-start_datetime']
@@ -61,6 +62,8 @@ class RSVP(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='rsvps')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='rsvps')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='confirmed')
+    guest_count = models.PositiveIntegerField(default=0)
+    notes = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

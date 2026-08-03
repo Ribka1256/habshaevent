@@ -5,16 +5,18 @@ from rest_framework import generics, permissions,viewsets
 from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework.response import Response
+from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 class IsOrganizerOrReadOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
-        return (
-            hasattr(request.user, 'organizer_profile')
-            and obj.organizer == request.user.organizer_profile
-        )
-
+        if obj.organizer.is_staff:
+            return request.user.is_staff
+        return obj.organizer == request.user
+    
+    
+        
 class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOrganizerOrReadOnly]
@@ -24,17 +26,25 @@ class EventViewSet(viewsets.ModelViewSet):
         if self.action == 'list':
             qs = qs.filter(status='published')
         return qs
-    
+
     def perform_create(self, serializer):
-        organizer = self.request.user.organizer_profile
-        serializer.save(organizer=organizer)
+        serializer.save(organizer=self.request.user)
 
     @action(detail=False, methods=['get'], permission_classes=[permissions.IsAuthenticated])
     def my_events(self, request):
-        organizer = request.user.organizer_profile
-        events = Event.objects.filter(organizer=organizer)
+        events = Event.objects.filter(organizer=request.user)
         serializer = self.get_serializer(events, many=True)
         return Response(serializer.data)
+    @action(detail=False, methods=['get'], permission_classes=[permissions.IsAuthenticated])
+    def featured(self, requset):
+        events= Event.objects.filter(status='published', is_featured=True)
+        serializer = self.get_serializer(events, many=True)
+        return Response(serializer.data)
+
+    def logout(self, request):
+        logout(request)
+        return Response({"message": "Logged out successfully."})
+
 
 class RSVPViewSet(viewsets.ModelViewSet):
     query = RSVP.objects.all()

@@ -14,7 +14,7 @@ const handleSubmit = async(e) =>{
     e.preventDefault();
     try{
         await login(username, password)
-        navigate('/');
+        navigate('/home');
     }
     catch(err){
         setError('Invalid username or password');

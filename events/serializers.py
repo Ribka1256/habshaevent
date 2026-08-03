@@ -6,7 +6,6 @@ class OrganizerSerializer(serializers.ModelSerializer):
         fields = ['organization_name', 'bio']
         
 class EventSerializer(serializers.ModelSerializer):
-    organizer = serializers.CharField(write_only=True)
     attendee_count = serializers.ReadOnlyField()
     is_full = serializers.ReadOnlyField()
 

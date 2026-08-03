@@ -9,3 +9,6 @@ export const registerUser = (userData) =>{
 export const refreshToken = (refresh) =>{
     return api.post('accounts/token/register', {refresh})
 }
+export const getMe = () =>{
+    return api.get('accounts/me/')
+}
