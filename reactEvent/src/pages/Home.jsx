@@ -1,27 +1,39 @@
 import '../style/home.css';
 import { useNavigate } from "react-router-dom";
-import EventList from './EventList';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getFeaturedEvents } from '../api/events';
 import { useAuth } from '../context/AuthContext';
+import RequestModal from '../components/RequestModal';
+
 function Home() {
   const [featured, setFeatured] = useState([]);
-  const {user, logout} = useAuth();
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     getFeaturedEvents()
-    .then((res)=>setFeatured(res.data))
+      .then((res) => setFeatured(res.data))
+      .catch((err) => console.error('Failed to load featured events:', err));
+  }, []);
 
-  },[])
-    const handleBrowse = () =>{
-       navigate("/eventlist");
-    }
-    const handleLogout = () =>{
-      logout()
-      navigate("/home");
-    }
+  const handleBrowse = () => {
+    navigate("/eventlist");
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/home");
+  };
+
+  const handleRequestSuccess = () => {
+    setSelectedEvent(null);
+    setSuccessMessage('Request submitted!');
+    setTimeout(() => setSuccessMessage(''), 3000);
+  };
+
   return (
     <div className="app">
       <header className="navbar">
@@ -32,40 +44,43 @@ function Home() {
           <a href="/bookings">📖 My Bookings</a>
           <a href="/vendors">🛍 Vendors</a>
           <a href="/traditions">🎭 Traditions</a>
-         <Link to ="/events/create"> ✉ Request Event</Link>
+          <Link to="/events/create"> ✉ Request Event</Link>
           <a href="/profile">👤 Profile</a>
         </nav>
         <div className="navbar__user">
           {user ? (
             <>
-            <span>Welcome, {user.username}</span>
-            <button className="btn btn--logout" onClick={handleLogout}>
-              Logout
-            </button>
+              <span>Welcome, {user.username}</span>
+              <button className="btn btn--logout" onClick={handleLogout}>
+                Logout
+              </button>
             </>
-          ):
-          (
+          ) : (
             <Link to="/login" className="btn btn--login">Login</Link>
           )}
         </div>
       </header>
 
       <section className="hero">
-        <h1>Wellcome, {user ? user.username : 
-          'Guest'}!</h1>
+        <h1>Welcome, {user ? user.username : 'Guest'}!</h1>
         <p>Discover and book authentic Ethiopian cultural ceremonies</p>
         <button className="btn btn--browse" onClick={handleBrowse}>🔍 Browse Ceremonies</button>
       </section>
 
       <section className="section">
         <h2>Featured Ceremonies</h2>
-{featured.map((event) => (
-  <div className="card" key={event.id}>
-    <h3>{event.title}</h3>
-    <p>📅 {new Date(event.start_datetime).toLocaleDateString()}</p>
-    <Link to={`/events/${event.id}`} className="btn btn--request">Request</Link>
-  </div>
-))}
+        {successMessage && <p className="status">{successMessage}</p>}
+        <div className="card-grid">
+          {featured.map((event) => (
+            <div className="card" key={event.id}>
+              <h3>{event.title}</h3>
+              <p>📅 {new Date(event.start_datetime).toLocaleDateString()}</p>
+              <button className="btn btn--request" onClick={() => setSelectedEvent(event)}>
+                Join Request 
+              </button>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="section">
@@ -77,6 +92,14 @@ function Home() {
           <div className="service">📷 Photography</div>
         </div>
       </section>
+
+      {selectedEvent && (
+        <RequestModal
+          event={selectedEvent}
+          onClose={() => setSelectedEvent(null)}
+          onSuccess={handleRequestSuccess}
+        />
+      )}
     </div>
   );
 }

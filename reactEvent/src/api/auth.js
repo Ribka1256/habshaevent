@@ -12,3 +12,5 @@ export const refreshToken = (refresh) =>{
 export const getMe = () =>{
     return api.get('accounts/me/')
 }
+
+export const updateProfile = (data) => api.patch('accounts/me/', data)

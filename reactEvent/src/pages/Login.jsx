@@ -31,7 +31,7 @@ const handleSubmit = async(e) =>{
           </div>
           <div className="layout__body">
 
-            <form className="form" action="" >
+            <form className="form" onClick={handleSubmit} >
                    <div className="form__group form__group">
                 <label htmlFor="room_name" >UserName</label>
                 <input id="username" name="username" type="text" onChange={(e) => setUsername(e.target.value)} placeholder="dennis_ivy" />
@@ -47,7 +47,7 @@ const handleSubmit = async(e) =>{
                 />
               </div>
 {error && <p style={{ color: 'red' }}>{error}</p>}
-              <button className="btn btn--main" type="submit" onClick={handleSubmit}>
+              <button className="btn btn--main" type="submit" >
                 <svg
                   version="1.1"
                   xmlns="http://www.w3.org/2000/svg"

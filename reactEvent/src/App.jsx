@@ -11,7 +11,8 @@ import EventDetail from './pages/EventDetail.jsx'
 import CreateEvent from './pages/CreateEvent.jsx'
 import EditEvent from './pages/EditEvent.jsx'
 import Dashboard from './pages/Dashboard.jsx'
-import RequestModel from './pages/RequestModel.jsx'
+import RequestModal from './components/RequestModal.jsx'
+import Profile from './pages/Profile.jsx'
 
 
 function App() {
@@ -26,8 +27,8 @@ function App() {
 <Route path='/events/:id' element={<EventDetail/>}></Route>
 <Route path='/events/create' element={<CreateEvent />}></Route>
 <Route path='/events/:id/edit' element={<EditEvent/>}></Route>
-<Route path='/requestmodel' element={<RequestModel/>}></Route>
 <Route path='/dashboard' element={<Dashboard />}></Route>
+<Route path='/profile' element={<Profile />}></Route>
 </Routes>
   );
 }

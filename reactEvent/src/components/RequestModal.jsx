@@ -1,27 +1,26 @@
-
 import { useState } from 'react';
 import { createRSVP } from '../api/events';
-import '../style/modal.css';
+import '../style/style.css';
 
-function RequestModel({ eventId, onClose }) {
-    const [guestCount, setGuestCount] = useState(1);
-    const [notes, setNotes] = useState('');
-    const [error, setError] = useState('');
-    const [submitting, setSubmitting] = useState(false);
+function RequestModal({ event, onClose, onSuccess }) {
+  const [guestCount, setGuestCount] = useState(1);
+  const [notes, setNotes] = useState('');
+  const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setSubmitting(true);
-        setError('');
-        try{
-            await createRSVP(eventId, guestCount, notes);
-        onSuccess();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setError('');
+    try {
+      await createRSVP(event.id, guestCount, notes);
+      onSuccess();
     } catch (err) {
       setError('Failed to submit request. You may have already requested this event.');
     } finally {
       setSubmitting(false);
     }
-    }
+  };
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -80,4 +79,5 @@ function RequestModel({ eventId, onClose }) {
     </div>
   );
 }
-export default RequestModel;
+
+export default RequestModal;

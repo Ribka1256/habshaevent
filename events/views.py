@@ -47,9 +47,13 @@ class EventViewSet(viewsets.ModelViewSet):
 
 
 class RSVPViewSet(viewsets.ModelViewSet):
-    query = RSVP.objects.all()
-    serializer = RSVPSerializer
+    serializer_class = RSVPSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    def get_queryset(self):
+        return RSVP.objects.filter(user=self.request.uset)
+
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        event = serializer.validated_data['event']
+        status_val = 'waitlisted' if event.is_full else 'confirmed'
+        serializer.save(user=self.request.user, status=status_val)

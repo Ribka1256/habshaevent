@@ -5,5 +5,5 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register('events',EventViewSet,basename='event')
-router.register('rsvp',RSVPViewSet,basename='rsvp')
+router.register('rsvps',RSVPViewSet,basename='rsvp')
 urlpatterns = router.urls

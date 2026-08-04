@@ -1,29 +1,31 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getEvents } from '../api/events';
+import RequestModal from '../components/RequestModal';
 import '../style/events.css';
 
-function EventList(){
+function EventList() {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
 
-    const [events, setEvents] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState('')
-    const [selectedEvent, setSelectedEvent] = useState(null)
-    const [succesMessage, setSuccesMessage]  = useState('')
-
-    useEffect(() =>{
-        getEvents()
-        .then((res) => setEvents(res.data))
-        .catch(() => setError('Failed to load events'))
+  useEffect(() => {
+    getEvents()
+      .then((res) => setEvents(res.data))
+      .catch(() => setError('Failed to load events'))
       .finally(() => setLoading(false));
-    },[])
-    const handleSucess = ( ) =>{
-      setSelectedEvent(null)
-      setSuccesMessage('Request submitted!')
-      setTimeout(() => setSelectedEvent(''), 3000)
-    }
-if (loading) return <p className="status">Loading events...</p>;
-if (error) return <p className="status status--error">{error}</p>;
+  }, []);
+
+  const handleRequestSuccess = () => {
+    setSelectedEvent(null);
+    setSuccessMessage('Request submitted!');
+    setTimeout(() => setSuccessMessage(''), 3000);
+  };
+
+  if (loading) return <p className="status">Loading events...</p>;
+  if (error) return <p className="status status--error">{error}</p>;
 
   return (
     <div className="section">
@@ -43,14 +45,15 @@ if (error) return <p className="status status--error">{error}</p>;
             </button>
           </div>
         ))}
-         {selectedEvent && (
+      </div>
+
+      {selectedEvent && (
         <RequestModal
           event={selectedEvent}
           onClose={() => setSelectedEvent(null)}
           onSuccess={handleRequestSuccess}
         />
       )}
-      </div>
     </div>
   );
 }
