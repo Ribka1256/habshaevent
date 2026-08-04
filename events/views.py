@@ -35,7 +35,7 @@ class EventViewSet(viewsets.ModelViewSet):
         events = Event.objects.filter(organizer=request.user)
         serializer = self.get_serializer(events, many=True)
         return Response(serializer.data)
-    @action(detail=False, methods=['get'], permission_classes=[permissions.IsAuthenticated])
+    @action(detail=False, methods=['get'], permission_classes=[permissions.AllowAny])
     def featured(self, requset):
         events= Event.objects.filter(status='published', is_featured=True)
         serializer = self.get_serializer(events, many=True)

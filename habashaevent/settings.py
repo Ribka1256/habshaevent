@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'events.apps.EventsConfig',
     'corsheaders',
+    'scraper',
 ]
 
 MIDDLEWARE = [

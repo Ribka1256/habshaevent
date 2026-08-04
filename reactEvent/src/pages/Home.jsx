@@ -22,12 +22,6 @@ function Home() {
   const handleBrowse = () => {
     navigate("/eventlist");
   };
-
-  const handleLogout = () => {
-    logout();
-    navigate("/home");
-  };
-
   const handleRequestSuccess = () => {
     setSelectedEvent(null);
     setSuccessMessage('Request submitted!');
@@ -36,31 +30,7 @@ function Home() {
 
   return (
     <div className="app">
-      <header className="navbar">
-        <div className="navbar__brand">HABESHA CEREMONIES</div>
-        <nav className="navbar__links">
-          <a href="/home">🏠 Home</a>
-          <a href="/ceremonies">📅 Ceremonies</a>
-          <a href="/bookings">📖 My Bookings</a>
-          <a href="/vendors">🛍 Vendors</a>
-          <a href="/traditions">🎭 Traditions</a>
-          <Link to="/events/create"> ✉ Request Event</Link>
-          <a href="/profile">👤 Profile</a>
-        </nav>
-        <div className="navbar__user">
-          {user ? (
-            <>
-              <span>Welcome, {user.username}</span>
-              <button className="btn btn--logout" onClick={handleLogout}>
-                Logout
-              </button>
-            </>
-          ) : (
-            <Link to="/login" className="btn btn--login">Login</Link>
-          )}
-        </div>
-      </header>
-
+  
       <section className="hero">
         <h1>Welcome, {user ? user.username : 'Guest'}!</h1>
         <p>Discover and book authentic Ethiopian cultural ceremonies</p>

@@ -13,15 +13,20 @@ import EditEvent from './pages/EditEvent.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import RequestModal from './components/RequestModal.jsx'
 import Profile from './pages/Profile.jsx'
+import NavBar from './components/NavBar.jsx'
 
 
 function App() {
 
 
   return (
+    <>
+    <Routes>
+      <Route path='/login' element={<Login/>}></Route>
+    </Routes>
+<NavBar/>
 <Routes>
 <Route path='/home' element={<Home/>}></Route>
-<Route path='/login' element={<Login/>}></Route>
 <Route path='/register' element={<Register/>}></Route>
 <Route path='/eventlist' element={<EventList/>}></Route>
 <Route path='/events/:id' element={<EventDetail/>}></Route>
@@ -30,6 +35,7 @@ function App() {
 <Route path='/dashboard' element={<Dashboard />}></Route>
 <Route path='/profile' element={<Profile />}></Route>
 </Routes>
+</>
   );
 }
 

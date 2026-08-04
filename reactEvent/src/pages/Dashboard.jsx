@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { getMyEvents, deleteEvent } from '../api/events';
 import '../style/dashboard.css';
 
-
 function Dashboard(){
  const [myEvents, setMyEvents] = useState([]);
   const [loading, setLoading] = useState(true);
