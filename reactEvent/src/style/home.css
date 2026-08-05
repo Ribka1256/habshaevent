@@ -12,8 +12,8 @@
 
 /* Navbar */
 .navbar {
-  background: #6b2a2a;
-  color: #f4e7c9;
+  background: var(--maroon-dark);
+  color: var(--gold-light);
   display: flex;
   align-items: center;
   justify-content: space-between;

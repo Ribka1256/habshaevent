@@ -1,4 +1,4 @@
-import '../style/home.css';
+import '../style/style.css';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -50,16 +50,6 @@ function Home() {
               </button>
             </div>
           ))}
-        </div>
-      </section>
-
-      <section className="section">
-        <h2>Traditional Services</h2>
-        <div className="service-grid">
-          <div className="service">🍽 Catering</div>
-          <div className="service">🎵 Attire</div>
-          <div className="service">☕ Coffee</div>
-          <div className="service">📷 Photography</div>
         </div>
       </section>
 

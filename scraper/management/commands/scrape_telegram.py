@@ -51,9 +51,11 @@ class Command(BaseCommand):
                                 'status': 'published',
                                 'is_featured': False,
                                 'end_datetime': date + timedelta(hours=3),
+                                'source': 'telegram',
+                                'source_channel': channel,
                             }
                         )
-                        self.stdout.write(f'Saved: {title}')
+                        self.stdout.write(f'Saved: {title} (from {channel})')
                     else:
                         self.stdout.write(f'Skipped (missing title or date)')
 

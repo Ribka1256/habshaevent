@@ -28,6 +28,7 @@ function EventList() {
   if (error) return <p className="status status--error">{error}</p>;
 
   return (
+  <div className="app">
     <div className="section">
       <h2>Browse Ceremonies</h2>
       {successMessage && <p className="status">{successMessage}</p>}
@@ -46,7 +47,7 @@ function EventList() {
           </div>
         ))}
       </div>
-
+    </div>
       {selectedEvent && (
         <RequestModal
           event={selectedEvent}

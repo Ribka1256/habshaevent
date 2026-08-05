@@ -21,10 +21,8 @@ function NavBar() {
 
       <nav className="navbar__links">
         <Link to="/home">🏠 Home</Link>
-        <Link to="/ceremonies">📅 Ceremonies</Link>
-        <Link to="/bookings">📖 My Bookings</Link>
-        <Link to="/vendors">🛍 Vendors</Link>
-        <Link to="/traditions">🎭 Traditions</Link>
+        <Link to="/eventlist">📅 Ceremonies</Link>
+        <Link to="/dashboard">📖 Dashboard</Link>
         <Link to="/events/create">✉ Request Event</Link>
         <Link to="/profile">👤 Profile</Link>
       </nav>

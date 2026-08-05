@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
-import '../style/style.css'
+import '../style/login.css'
 function Login() {
 const [username, setUsername] = useState('')
 const [password, setPassword] = useState('')
@@ -31,7 +31,7 @@ const handleSubmit = async(e) =>{
           </div>
           <div className="layout__body">
 
-            <form className="form" onClick={handleSubmit} >
+            <form className="form" onSubmit={handleSubmit} >
                    <div className="form__group form__group">
                 <label htmlFor="room_name" >UserName</label>
                 <input id="username" name="username" type="text" onChange={(e) => setUsername(e.target.value)} placeholder="dennis_ivy" />

@@ -38,6 +38,8 @@ class Event(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_featured = models.BooleanField(default=False)
+    source = models.CharField(max_length=50, default='manual')  # 'manual' or 'telegram'
+    source_channel = models.CharField(max_length=100, blank=True)
 
     class Meta:
         ordering = ['-start_datetime']
