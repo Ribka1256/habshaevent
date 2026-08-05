@@ -8,6 +8,7 @@ function RequestModal({ event, onClose, onSuccess }) {
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
+  const link = event.description.match(/https?:\/\/[^\s]+/)?.[0];
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);

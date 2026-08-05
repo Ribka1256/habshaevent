@@ -1,5 +1,28 @@
+:root {
+  --maroon: #6A1B29;
+  --maroon-dark: #480E18;
+  --maroon-light: #963241;
+  --gold: #C59B55;
+  --gold-light: #E6BE78;
+  --cream: #FCF5E6;
+  --cream-dark: #EBDCC3;
+  --teal: #2D645A;
+  --teal-light: #3C8273;
+  --text-dark: #28140A;
+  --text-light: #FCF5E6;
+  --white-trans: rgba(255, 255, 255, 0.78);
+  --shadow: rgba(0, 0, 0, 0.2);
+  --success: #3C8C50;
+  --warning: #C88C1E;
+  --danger: #B42828;
+
+}
+#color{
+  background: var(--cream-dark);
+
+}
 .form-card {
-  background: white;
+  background: var(--cream);
   border-radius: 10px;
   padding: 2rem;
   max-width: 500px;
@@ -8,7 +31,7 @@
 }
 
 .form-card h2 {
-  color: #6b2a2a;
+  color: var(--maroon);
   margin-bottom: 1.25rem;
 }
 

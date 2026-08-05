@@ -29,7 +29,8 @@ if (loading) return <p className="status">Loading...</p>;
 if (!event) return <p className="status status--error">Event not found.</p>;
 
 return(
-    <div className="section detail">
+  <div id='color'>
+    <div className="section detail" >
         <div className="detail__card">
             <h2>{event.title}</h2>
 
@@ -56,6 +57,7 @@ return(
 
         {rsvpMessage && <p className="status">{rsvpMessage}</p>}
         </div>
+    </div>
     </div>
 )
 }

@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { getFeaturedEvents } from '../api/events';
 import { useAuth } from '../context/AuthContext';
 import RequestModal from '../components/RequestModal';
+import { extractLink } from '../utils/extractLink';
 
 function Home() {
   const [featured, setFeatured] = useState([]);
@@ -27,7 +28,14 @@ function Home() {
     setSuccessMessage('Request submitted!');
     setTimeout(() => setSuccessMessage(''), 3000);
   };
-
+const handleRequestClick = (event) => {
+  const link = extractLink(event.description);
+  if (link) {
+    window.open(link, '_blank', 'noopener,noreferrer');
+  } else {
+    setSelectedEvent(event);
+  }
+};
   return (
     <div className="app">
   
@@ -45,7 +53,7 @@ function Home() {
             <div className="card" key={event.id}>
               <h3>{event.title}</h3>
               <p>📅 {new Date(event.start_datetime).toLocaleDateString()}</p>
-              <button className="btn btn--request" onClick={() => setSelectedEvent(event)}>
+              <button className="btn btn--request" onClick={() => handleRequestClick(event)}>
                 Join Request 
               </button>
             </div>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { getEvents } from '../api/events';
 import RequestModal from '../components/RequestModal';
 import '../style/events.css';
-
+import { extractLink } from '../utils/extractLink';
 function EventList() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,13 +23,23 @@ function EventList() {
     setSuccessMessage('Request submitted!');
     setTimeout(() => setSuccessMessage(''), 3000);
   };
+  const handleRequestClick = (event) => {
+    const link = extractLink(event.description);
+    if (link){
+      window.open(link, '_blank', 'noopener,noreferrer');
+    }
+    else{
+      setSelectedEvent(event);
+    }
+    
+  }
 
   if (loading) return <p className="status">Loading events...</p>;
   if (error) return <p className="status status--error">{error}</p>;
 
   return (
   <div className="app">
-    <div className="section">
+    <div className="section" id='color'>
       <h2>Browse Ceremonies</h2>
       {successMessage && <p className="status">{successMessage}</p>}
       <div className="card-grid">
@@ -41,8 +51,8 @@ function EventList() {
             <Link to={`/events/${event.id}`} className="btn btn--request">
               View Details
             </Link>
-            <button className="btn btn--request" onClick={() => setSelectedEvent(event)}>
-              Request
+            <button className="btn btn--request" onClick={() => handleRequestClick(event)}>
+              Join Request
             </button>
           </div>
         ))}

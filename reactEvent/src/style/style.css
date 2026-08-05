@@ -221,3 +221,306 @@
   color: var(--danger);
   font-weight: bold;
 }
+/* 1. The Overlay: Dims the background and centers the modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  backdrop-filter: blur(4px); /* Modern blur effect */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+/* 2. The Modal Box */
+.modal {
+  background: white;
+  width: 100%;
+  max-width: 450px; /* Small, focused width */
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 3. Header Styling */
+.modal__header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fcfcfc;
+}
+
+.modal__header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.modal__close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.2s;
+}
+
+.modal__close:hover {
+  color: #cc0000;
+}
+
+/* 4. Form and Inputs */
+.modal__body {
+  padding: 24px;
+}
+
+.form__group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form__group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.form__group input, 
+.form__group textarea {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form__group input:focus, 
+.form__group textarea:focus {
+  outline: none;
+  border-color: #800000; /* Maroon focus */
+  box-shadow: 0 0 0 3px rgba(128, 0, 0, 0.1);
+}
+
+.form__group input:disabled {
+  background-color: #f5f5f5;
+  color: #888;
+  cursor: not-allowed;
+}
+
+textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* 5. Meta Information (Icons/Date/Price) */
+.modal__meta {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+}
+
+/* 6. The Button */
+.btn--main {
+  width: 100%;
+  background-color: #800000; /* Maroon color from your theme */
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn--main:hover {
+  background-color: #600000;
+}
+
+.btn--main:active {
+  transform: scale(0.98);
+}
+
+.btn--main:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Error Status */
+.status--error {
+  color: #d32f2f;
+  background: #ffebee;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+}
+/* 1. Main Page Layout */
+.profile-page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 90vh;
+  padding: 40px 20px;
+  background-color: var(--cream-dark); /* Very light beige/white */
+}
+
+/* 2. The Profile Card */
+.profile-card {
+  background: var(--cream);
+  width: 100%;
+  max-width: 600px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eee;
+  overflow: hidden;
+}
+
+/* 3. Header Section */
+.profile-card__header {
+  padding: 30px 30px 20px 30px;
+  border-bottom: 1px solid #f0f0f0;
+  text-align: left;
+}
+
+.profile-card__title-amharic {
+  font-size: 2rem;
+  color: #800000; /* Maroon */
+  margin: 0;
+  font-weight: 700;
+}
+
+.profile-card__meta {
+  color: #888;
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
+/* 4. Form Body */
+.profile-card__body {
+  padding: 30px;
+}
+
+/* Form Groups (Labels + Inputs) */
+.form__group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form__group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form__group input {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background-color: #fafafa;
+}
+
+.form__group input:focus {
+  outline: none;
+  background-color: #fff;
+  border-color: #800000;
+  box-shadow: 0 0 0 4px rgba(128, 0, 0, 0.08);
+}
+
+/* 5. Buttons */
+.btn--save {
+  width: 100%;
+  padding: 14px;
+  background-color: #800000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.1s;
+  margin-top: 10px;
+}
+
+.btn--save:hover {
+  background-color: #600000;
+}
+
+.btn--save:active {
+  transform: scale(0.99);
+}
+
+/* 6. Status Messages */
+.status {
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.status--error {
+  background-color: #fff1f0;
+  color: #cf1322;
+  border: 1px solid #ffa39e;
+}
+
+.status--success {
+  background-color: #f6ffed;
+  color: #389e0d;
+  border: 1px solid #b7eb8f;
+}
+
+/* 7. Footer / Password Section */
+.profile-card__footer {
+  padding: 30px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #eee;
+}
+
+.profile-card__subtitle-amharic {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.profile-card__footer input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+}
+
+/* Loading State Styling */
+p.status {
+    margin-top: 50px;
+    font-weight: bold;
+    color: #800000;
+}

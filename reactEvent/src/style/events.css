@@ -1,21 +1,173 @@
+:root {
+  --maroon: #6A1B29;
+  --maroon-dark: #480E18;
+  --maroon-light: #963241;
+  --gold: #C59B55;
+  --gold-light: #E6BE78;
+  --cream: #FCF5E6;
+  --cream-dark: #EBDCC3;
+  --text-dark: #28140A;
+  --success: #3C8C50;
+  --danger: #B42828;
+}
+
 .status {
   text-align: center;
-  color: #6b2a2a;
+  color: var(--maroon);
   padding: 2rem;
 }
 
 .status--error {
-  color: #b8342a;
+  color: var(--danger);
   font-weight: bold;
 }
 
+/* Search bar */
+.search-bar {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.search-bar input[type="text"] {
+  flex: 1;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--maroon-dark);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background: white;
+}
+
+.search-bar select {
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--cream-dark);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background: white;
+  min-width: 140px;
+}
+
+.search-bar input:focus,
+.search-bar select:focus {
+  outline: none;
+  border-color: var(--maroon);
+}
+
+.btn--search {
+  background: var(--teal, #2D645A);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn--search:hover {
+  opacity: 0.9;
+}
+
+/* Card grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  background: var(--cream);
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: var(--text-dark);
+
+}
+
+.card__title-amharic {
+  color: var(--maroon-light);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.card h3 {
+  color: var(--maroon);
+  font-size: 1.05rem;
+  margin-bottom: 0.15rem;
+}
+
+.card__category {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.4rem;
+}
+
+.card__category--festival { color: #b8342a; }
+.card__category--wedding { color: #7a3fa0; }
+.card__category--mezena { color: #b8342a; }
+.card__category--coffee { color: #4a7a3f; }
+.card__category--baptism { color: #3f7ab8; }
+.card__category--engagement { color: #c07a1e; }
+
+.card p {
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 0.4rem;
+}
+
+.card__meta {
+  font-size: 0.8rem;
+  color: #444;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.card__price {
+  font-weight: 700;
+  color: var(--success);
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.card__spacer {
+  flex: 1;
+}
+
+.btn--request {
+  background: var(--maroon);
+  color: white;
+  border: none;
+  padding: 0.45rem 1rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: flex-start;
+  font-size: 0.85rem;
+}
+
+.btn--request:hover {
+  background: var(--maroon-dark);
+}
+
+/* Detail page (kept from before, updated to cream theme) */
 .detail {
   display: flex;
   justify-content: center;
 }
 
 .detail__card {
-  background: rgb(83, 66, 66);
+  background: var(--cream);
+  border: 1px solid var(--gold);
   border-radius: 10px;
   padding: 2rem;
   max-width: 600px;
@@ -24,7 +176,7 @@
 }
 
 .detail__card h2 {
-  color: #6b2a2a;
+  color: var(--maroon);
   margin-bottom: 0.5rem;
 }
 
@@ -32,14 +184,4 @@
   color: #888;
   margin-bottom: 1rem;
   font-size: 0.9rem;
-}
-.card {
-  border-radius: 8px;
-  padding: 1.25rem;
-  color: var(--text-light);
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  min-height: 140px;
-  background: linear-gradient(135deg, var(--maroon-light), var(--maroon-dark)); /* ✅ default */
 }

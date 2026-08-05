@@ -12,6 +12,7 @@ const [title, setTitle] = useState('');
   const [capacity, setCapacity] = useState(0);
   const [coverImage, setCoverImage] = useState(null);
   const [status, setStatus] = useState('draft');
+  const [link, setLink] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -26,6 +27,7 @@ const [title, setTitle] = useState('');
     formData.append('end_datetime', endDatetime)
     formData.append('capacity', capacity)
     formData.append('status', status)
+    formData.append('link', link)
     if (coverImage) formData.append('cover_image', coverImage);
   
   try{
@@ -36,7 +38,7 @@ const [title, setTitle] = useState('');
     }
 }
     return (
-    <div className="section">
+    <div className="section" id='color'>
       <div className="form-card">
         <h2>Create Ceremony</h2>
         <form onSubmit={handleSubmit}>
@@ -74,7 +76,10 @@ const [title, setTitle] = useState('');
             <label htmlFor="cover">Cover Image</label>
             <input id="cover" type="file" accept="image/*" onChange={(e) => setCoverImage(e.target.files[0])} />
           </div>
-
+  <div className="form__group">
+            <label htmlFor="link">Link</label>
+            <input id="link" value={link} onChange={(e) => setLink(e.target.value)} />
+          </div>
           <div className="form__group">
             <label htmlFor="status">Status</label>
             <select id="status" value={status} onChange={(e) => setStatus(e.target.value)}>

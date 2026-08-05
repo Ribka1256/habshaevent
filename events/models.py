@@ -40,6 +40,7 @@ class Event(models.Model):
     is_featured = models.BooleanField(default=False)
     source = models.CharField(max_length=50, default='manual')  # 'manual' or 'telegram'
     source_channel = models.CharField(max_length=100, blank=True)
+    link = models.URLField(blank=True, null=True)  # Optional link field
 
     class Meta:
         ordering = ['-start_datetime']

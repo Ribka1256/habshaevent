@@ -29,6 +29,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 1rem;
+  background: linear-gradient(135deg, #2f4f3e, #6b2a2a);
 }
 
 .layout__box {
