@@ -95,8 +95,10 @@
 
 .card h3 {
   color: var(--maroon);
-  font-size: 1.05rem;
+  font-size: 1.3rem;
   margin-bottom: 0.15rem;
+  font-weight: 600;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
 .card__category {

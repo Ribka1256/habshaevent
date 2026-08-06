@@ -47,6 +47,7 @@ return(
     </p>
 
 
+
         {accessToken ? (
           <button className="btn btn--request" onClick={handleRSVP}>
             {event.is_full ? 'Join Waitlist' : 'RSVP'}

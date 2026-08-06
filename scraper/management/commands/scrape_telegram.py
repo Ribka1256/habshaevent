@@ -4,20 +4,30 @@ from telethon.sync import TelegramClient
 from events.models import Event
 from accounts.models import User
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 from dateutil import parser as date_parser
 from dateutil.parser import ParserError
-from datetime import timedelta
-
 
 API_ID = '34122130'
 API_HASH = 'b65d38bda48ee41f381286ae82d2c2dc'
-CHANNELS = ['@EventsEthiopia','@EventInAddis','@LinkUpAddis']
+CHANNELS = ['@EventsEthiopia', '@EventInAddis', '@LinkUpAddis']
+
 
 class Command(BaseCommand):
     help = 'Scrape events from Telegram channels'
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--days',
+            type=int,
+            default=2,
+            help='Only save events happening within this many days from now'
+        )
+
     def handle(self, *args, **options):
+        days_ahead = options['days']
         self.stdout.write('Starting scraper...')
+
         with TelegramClient('scraper_session', API_ID, API_HASH) as client:
             self.stdout.write('Connected to Telegram.')
             bot_user, _ = User.objects.get_or_create(
@@ -28,6 +38,7 @@ class Command(BaseCommand):
             for channel in CHANNELS:
                 self.stdout.write(f'Checking channel: {channel}')
                 message_count = 0
+
                 for message in client.iter_messages(channel, limit=50):
                     message_count += 1
                     if not message.text:
@@ -40,29 +51,33 @@ class Command(BaseCommand):
                     self.stdout.write(f'--- Message text: {message.text[:80]}...')
                     self.stdout.write(f'    Extracted -> title={title}, date={date}, location={location}')
 
-                    if title and date:
-                        Event.objects.get_or_create(
-                            title=title,
-                            start_datetime=date,
-                            defaults={
-                                'organizer': bot_user,
-                                'description': message.text,
-                                'location': location or 'Unknown',
-                                'status': 'published',
-                                'is_featured': False,
-                                'end_datetime': date + timedelta(hours=3),
-                                'source': 'telegram',
-                                'source_channel': channel,
-                            }
-                        )
-                        self.stdout.write(f'Saved: {title} (from {channel})')
-                    else:
-                        self.stdout.write(f'Skipped (missing title or date)')
+                    if not (title and date):
+                        self.stdout.write('Skipped (missing title or date)')
+                        continue
+
+                    if not self.is_within_window(date, days_ahead=days_ahead):
+                        self.stdout.write(f'Skipped (outside window): {title} -> {date}')
+                        continue
+
+                    Event.objects.get_or_create(
+                        title=title,
+                        start_datetime=date,
+                        defaults={
+                            'organizer': bot_user,
+                            'description': message.text,
+                            'location': location or 'Unknown',
+                            'status': 'published',
+                            'is_featured': False,
+                            'end_datetime': date + timedelta(hours=3),
+                            'source': 'telegram',
+                            'source_channel': channel,
+                        }
+                    )
+                    self.stdout.write(f'Saved: {title} (from {channel})')
 
                 self.stdout.write(f'Total messages checked in {channel}: {message_count}')
 
     def extract_title(self, text):
-        # first non-empty line, stripped of emoji, as a simple heuristic
         lines = [l.strip() for l in text.split('\n') if l.strip()]
         return lines[0][:200] if lines else None
 
@@ -70,15 +85,24 @@ class Command(BaseCommand):
         match = re.search(r'📍\s*(.+)', text)
         return match.group(1).strip() if match else None
 
+    def is_within_window(self, event_date, days_ahead=2):
+        """Only keep events happening today through `days_ahead` days from now."""
+        if not event_date:
+            return False
+        if event_date.tzinfo is not None:
+            event_date = event_date.replace(tzinfo=None)
+        now = datetime.now()
+        window_end = now + timedelta(days=days_ahead)
+        return now <= event_date <= window_end
+
     def extract_date(self, text):
         match = re.search(r'📅\s*(.+)', text)
         if not match:
             return None
         date_str = match.group(1).strip()
 
-        # Clean up common noise that trips up the parser
         date_str = date_str.replace('local time', '').strip()
-        date_str = re.sub(r'(\d+)(st|nd|rd|th)', r'\1', date_str)  # "31st" -> "31"
+        date_str = re.sub(r'(\d+)(st|nd|rd|th)', r'\1', date_str)
         date_str = re.sub(r'^Deadline:\s*', '', date_str, flags=re.IGNORECASE)
         date_str = re.sub(r'^Application Deadline:\s*', '', date_str, flags=re.IGNORECASE)
         date_str = re.sub(r'^Till\s+', '', date_str, flags=re.IGNORECASE)
