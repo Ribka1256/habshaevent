@@ -1,0 +1,1 @@
+web: gunicorn habashaevent.wsgi --log-file -
