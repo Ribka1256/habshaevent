@@ -73,13 +73,14 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.25rem;
+  border-radius: 28px;
 }
 
 .card {
   background: var(--cream);
   border: 1px solid var(--gold);
-  border-radius: 8px;
-  padding: 1.25rem;
+  border-radius: 822px;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.35rem;

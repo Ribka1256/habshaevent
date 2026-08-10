@@ -17,11 +17,11 @@ function NavBar() {
 
   return (
     <header className="navbar">
-      <div className="navbar__brand">HABESHA CEREMONIES</div>
+      <div className="navbar__brand">EVENT HUB</div>
 
       <nav className="navbar__links">
         <Link to="/home">🏠 Home</Link>
-        <Link to="/eventlist">📅 Ceremonies</Link>
+        <Link to="/eventlist">📅 Events</Link>
         <Link to="/dashboard">📖 Dashboard</Link>
         <Link to="/events/create">✉ Request Event</Link>
         <Link to="/profile">👤 Profile</Link>
